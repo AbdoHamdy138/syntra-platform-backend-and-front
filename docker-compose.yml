@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: syntra_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-Mobarak1972$}
+      POSTGRES_DB: ${DB_NAME:-syntra_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-syntra_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: syntra_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      CLIENT_ORIGIN: http://localhost:5173
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-Mobarak1972$}
+      DB_NAME: ${DB_NAME:-syntra_db}
+      JWT_SECRET: ${JWT_SECRET:-syntra_super_secure_jwt_secret_key_2026_xyz987654321}
+      DEMO_OTP_IN_RESPONSE: "true"
+    ports:
+      - "4000:4000"
+
+volumes:
+  postgres_data:

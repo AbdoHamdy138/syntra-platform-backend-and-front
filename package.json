@@ -1,0 +1,12 @@
+{
+  "name": "syntra-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix ./syntra-front-for-back-main run dev",
+    "build": "npm --prefix ./syntra-front-for-back-main run build",
+    "test": "npx --prefix ./syntra-front-for-back-main vitest run --root ./syntra-front-for-back-main",
+    "backend": ".\\backend\\.venv\\Scripts\\python.exe backend/run.py"
+  }
+}
+

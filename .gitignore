@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json
+
+# Python & Virtualenv
+.venv/
+*/.venv/
+env/
+venv/
+ENV/
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Environment & Secrets (Never commit credentials)
+.env
+*.env
+*.env.local
+*.env.*.local
+!.env.example
+!*/.env.example
+
+# Build & Dist
+dist/
+*/dist/
+build/
+*.egg-info/
+
+# Archives & Large Blobs
+*.zip
+*.tar
+*.gz
+*.rar
+
+# Logs & Runtime
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.system_generated/
+scratch/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
